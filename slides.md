@@ -39,3 +39,7 @@
 
 * All of them are officialy stable version
 * But Ruby 1.9 series didn't look like stable
+
+
+# Example 1: Ruby as a template engine
+
