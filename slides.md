@@ -43,3 +43,35 @@
 
 # Example 1: Ruby as a template engine
 
+PHP + Smarty
+Haml
+
+Ruby 1.9 new syntax
+
+# Example 2: Ruby as a shell script
+
+Spawn, system and open3
+
+Open3.capture2e
+
+
+# More...
+
+* Local variable shadowing (less bug!)
+
+# Notices
+
+change between 1.8 and 1.9
+
+* String isn't Enumerable
+* when clause doesn't accept colon as semicolon
+
+change between 1.9.1 and 1.9.2
+
+* $: doesn't have the current dir.
+require_relative is handy (but long...)
+
+# Quote
+
+* 1.8 is like svn while 1.9 is like git
+* it's difficult to go back from 1.9 to 1.8
