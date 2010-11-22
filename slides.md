@@ -1,5 +1,14 @@
 # Ruby 1.9.2 in Production with Tatsuhiro Ujihisa
 
+----
+# Demo: make a gem library 1.9.2 compatible
+
+* github gem library
+* `github create` etc..
+* it's very 1.8 even though it's new
+
+----
+
 # Agenda
 
 1. What is Ruby 1.9.2?
