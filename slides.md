@@ -39,7 +39,7 @@ A normal Ruby quiz: How to assign a value to a local variable without using assi
     a = :something
     p a #=> :something
 
-# Sample answer
+# Sample answer 1
 
     for a in [:something]; end
 
@@ -48,7 +48,16 @@ A normal Ruby quiz: How to assign a value to a local variable without using assi
 * "Local variable" is very special in Ruby
 * Declaring a new local variable is completely static
 
-I've found only this solution so far. (I know another way but it's not complete.. I'll talk it later)
+One more answer which is only on 1.9
+
+# Sample answer 2
+
+    /(?<a>).*/ =~ ''
+    eval 'a=:something'
+
+    p a
+
+There are a match operator `=~` and a string which contains `=`, but no assignment operator `=`.
 
 # Ruby 1.9.2 in Production with Tatsuhiro Ujihisa
 
@@ -65,7 +74,7 @@ I've found only this solution so far. (I know another way but it's not complete.
 
 "Ruby 1.9.2 makes your code cleaner and easier to maintain."
 
-# Background: Ruby versions
+# Ruby versions
 
 * Ruby 1.8.6
     * Mar 2007
@@ -78,7 +87,7 @@ I've found only this solution so far. (I know another way but it's not complete.
 * Ruby 1.9.2
     * Aug 2010
 
-# Background: Ruby versions
+# Ruby versions
 
 * Ruby 1.8.6
     * Mar 2007
@@ -165,8 +174,8 @@ It's beautiful.
 
 `system` or \`\` operator lacked some important functionalities.
 
-* Ruby is a good shell script (Rakefile!)
-* Ruby has some process handling functionalities
+* Ruby is a good shell script (Rakefile!),
+* Ruby has some file/process handling methods,
 * But..
     * You couldn't retrieve the output or error of `system`
     * You could run a command asynchronously with `system` with "&", but couldn't kill the process directly
@@ -195,20 +204,22 @@ in ruby?
 # Better solution
 
     pid = fork do
-      exec 'ruby sinatra_app &'
+      exec 'ruby', 'sinatra_app'
     end
     # something..
     Process.kill 'KILL', pid
 
-* This doesn't work on NetBSD or Windows due to fork()
+* This doesn't work on NetBSD4 or Windows due to `fork()`
 
 # Best solution
 
-    pid = spawn 'ruby sinatra_app'
+    pid = spawn 'ruby', 'sinatra_app'
     # something...
     Process.kill 'KILL', pid
 
-`:)`
+* `:)`
+* `spawn =~ {fork + exec} or {system + &}`
+* portable
 
 # New system and spawn spec
 
@@ -218,35 +229,17 @@ in ruby?
     spawn(...)
     #=> Fixnum
 
-# 1.9.2 enhancements
+# Even more..
 
-A new method `spawn` which is almost same to `system` except that `spawn` is *asynchronous*.
+`open3` standard library
 
-1
-
-    result = `ls &`
-    puts result
-    # It's not asynchronous even though it has &!
-
-2
-
-    r, w = IO.pipe
-    system 'ls', out: w
-    w.close_write
-    result = r.read
-
-    puts result
-
-# Example 2: Ruby as a shell script
-
-Spawn, system and open3
-
-Open3.capture2e
+* Open3.capture2e
+* powered by spawn (read the source!)
 
 
-# More...
+# Problem 3
 
-* Local variable shadowing (less bug!)
+* Local variable shadowing (potantial bug!)
 
     a = :hello
     [1, 2, 3].each do |a|
@@ -254,13 +247,29 @@ Open3.capture2e
     end
     p a #=> 3 (in 1.8)
 
-# Demo: make a gem library 1.9.2 compatible
+# Problem 4
 
-* github gem library
-* `github create` etc..
-* it's very 1.8 even though it's new (made at 20??) # FIXME
+* "Most libraries didn't work"
+* Yes it was (particularly on 1.9.1)
 
-# Notices
+# now?
+
+Active libraries work!
+
+* nokogiri
+* rails
+
+# Problem 5
+
+Installation
+
+* install ruby, and then install rubygems, ...
+
+# rubygems is builtin!
+
+* rake as well
+
+# How to make legacy code 1.9 compatible?
 
 Changes between 1.8 and 1.9
 
@@ -270,14 +279,36 @@ Changes between 1.8 and 1.9
 change between 1.9.1 and 1.9.2
 
 * `$:` doesn't have the current dir.
+    * require_relative is handy (but long...)
 
-require_relative is handy (but long...)
+# Demo: make a gem library 1.9.2 compatible
+
+* github gem library
+* `github create` etc..
+* it's very 1.8 even though it's new
+    * 0.1.0 was March 3, 2008
+    * 0.4.5 was Oct 25, 2010; after 1.9.2 public release!
+
+# done.
+
+![](http://www.h-online.com/imgs/43/5/5/8/3/2/8/ruby-logo-200-055ec6d14ab80eb7.png)
 
 # Quote
 
-* 1.8 is like svn while 1.9 is like git
-* it's difficult to go back from 1.9 to 1.8
+> 1.8 is like svn while 1.9 is like git
+> -- it's difficult to go back from 1.9 to 1.8
 
 # The summary of this talk (again)
 
 "Ruby 1.9.2 makes your code cleaner and easier to maintain."
+
+# end
+
+*thanks!*
+
+talk by
+
+* Tatsuhiro Ujihisa
+* @ujm
+* HootSuite Media, inc
+* Ruby, Haskell, JavaScript, Vim script, etc..
