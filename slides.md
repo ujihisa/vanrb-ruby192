@@ -1,15 +1,6 @@
 # Ruby 1.9.2 in Production with Tatsuhiro Ujihisa
 
-----
-# Demo: make a gem library 1.9.2 compatible
-
-* github gem library
-* `github create` etc..
-* it's very 1.8 even though it's new
-
-----
-
-# Agenda
+# Before the talk...
 
 * two questions
 * easy one and normal one
@@ -39,6 +30,8 @@ An easy Ruby quiz: How to define a method without using "def" keyword?
 
 * There's no keyword def but string containing 'def'
 
+I think there are a lot more answers
+
 # Question 2
 
 A normal Ruby quiz: How to assign a value to a local variable without using assignment operator "="?
@@ -54,6 +47,8 @@ A normal Ruby quiz: How to assign a value to a local variable without using assi
 
 * "Local variable" is very special in Ruby
 * Declaring a new local variable is completely static
+
+I've found only this solution so far. (I know another way but it's not complete.. I'll talk it later)
 
 # Ruby 1.9.2 in Production with Tatsuhiro Ujihisa
 
@@ -116,6 +111,10 @@ A normal Ruby quiz: How to assign a value to a local variable without using assi
 
 # Problem 1
 
+About syntax
+
+# Problem 1
+
 JSON is cool. Dictionary in Erlang is cool. Hash in Ruby is...?
 
 JavaScript or Erlang:
@@ -160,6 +159,10 @@ It's beautiful.
 
 # Problem 2
 
+* About builtin methods
+
+# Problem 2
+
 `system` or \`\` operator lacked some important functionalities.
 
 * Ruby is a good shell script (Rakefile!)
@@ -168,6 +171,12 @@ It's beautiful.
     * You couldn't retrieve the output or error of `system`
     * You could run a command asynchronously with `system` with "&", but couldn't kill the process directly
     * You couldn't run a command asynchronously with \`\`
+
+# Example
+
+How to implement `less` command in Ruby?
+
+    $ make |& less
 
 # 1.9.2 enhancements
 
@@ -219,16 +228,29 @@ Open3.capture2e
 
 * Local variable shadowing (less bug!)
 
+    a = :hello
+    [1, 2, 3].each do |a|
+      p a
+    end
+    p a #=> 3 (in 1.8)
+
+# Demo: make a gem library 1.9.2 compatible
+
+* github gem library
+* `github create` etc..
+* it's very 1.8 even though it's new (made at 20??) # FIXME
+
 # Notices
 
-change between 1.8 and 1.9
+Changes between 1.8 and 1.9
 
 * String isn't Enumerable
 * when clause doesn't accept colon as semicolon
 
 change between 1.9.1 and 1.9.2
 
-* $: doesn't have the current dir.
+* `$:` doesn't have the current dir.
+
 require_relative is handy (but long...)
 
 # Quote
