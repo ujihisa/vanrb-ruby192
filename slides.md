@@ -8,6 +8,7 @@
 # Question 1
 
 An easy Ruby quiz: How to define a method without using "def" keyword?
+(only with pure Ruby)
 
     def a
       :something
@@ -35,6 +36,7 @@ I think there are a lot more answers
 # Question 2
 
 A normal Ruby quiz: How to assign a value to a local variable without using assignment operator "="?
+(only with pure Ruby)
 
     a = :something
     p a #=> :something
@@ -150,7 +152,7 @@ HTML:
 
     <img src="a.jpg" width="64" height="128"></img>
 
-Haml:
+Haml with ruby variables:
 
     %img{:src => icon_path, :width => icon[:width], :height => icon[:height]}
 
@@ -163,8 +165,6 @@ Haml:
 Using 1.9.2 new hash syntax
 
     %img{src: icon_path, width: icon[:width], height: icon[:height]}
-
-It's beautiful.
 
 # Problem 2
 
@@ -312,3 +312,11 @@ talk by
 * @ujm
 * HootSuite Media, inc
 * Ruby, Haskell, JavaScript, Vim script, etc..
+
+![hootsuite](http://twittercism.com/wp-content/uploads/2010/02/hootsuite_icon.png)
+
+# appendix
+
+* JRuby
+    * --1.9 option
+    * almost compatible with 1.9 except `spawn()` or etc
