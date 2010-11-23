@@ -174,33 +174,53 @@ It's beautiful.
 
 # Example
 
-How to implement `less` command in Ruby?
+Start a Sinatra app by a Ruby script and kill the app by the script
 
-    $ make |& less
+in shell script:
+
+    #!/bin/sh
+    ruby sinatra_app.rb &
+    PID=$!
+    # something...
+    kill $PID
+
+in ruby?
+
+# Bad solution
+
+    system 'ruby sinatra_app &'
+
+* You cannot get the proccess ID, so you cannot kill the process
+
+# Better solution
+
+    pid = fork do
+      exec 'ruby sinatra_app &'
+    end
+    # something..
+    Process.kill 'KILL', pid
+
+* This doesn't work on NetBSD or Windows due to fork()
+
+# Best solution
+
+    pid = spawn 'ruby sinatra_app'
+    # something...
+    Process.kill 'KILL', pid
+
+`:)`
+
+# New system and spawn spec
+
+    system({'A' => 'b'}, 'c', in: input_io, [:out, :err] => :out)
+    #=> true/false
+
+    spawn(...)
+    #=> Fixnum
 
 # 1.9.2 enhancements
 
-`system` now receives option to handle stdin/out/error.
-
-The following codes does same thing in 1.9
-
-1
-
-    result = `ls`
-    puts result
-
-2
-
-    r, w = IO.pipe
-    system 'ls', out: w
-    w.close_write
-    result = r.read
-
-    puts result
-
-# 1.9.2 enhancements
-
-A new method `spawn` which is same to `system` except that `spawn` is *asynchronous*.
+A new method `spawn` which is almost same to `system` except that `spawn` is *asynchronous*.
 
 1
 
