@@ -76,6 +76,8 @@ There are a match operator `=~` and a string which contains `=`, but no assignme
 
 "Ruby 1.9.2 makes your code cleaner and easier to maintain."
 
+![matz](http://3.bp.blogspot.com/_o0aANf43DII/SW6dIomoNBI/AAAAAAAAASM/Lb3jgxfquSM/s400/matz.gif)
+
 # Ruby versions
 
 * Ruby 1.8.6
@@ -111,7 +113,7 @@ There are a match operator `=~` and a string which contains `=`, but no assignme
 
 # What's new?
 
-* Which real problems did 1.9 solved?
+* Which problems did 1.9 solved?
 * How can you write code easily?
 * -> Examples
 
@@ -119,6 +121,7 @@ There are a match operator `=~` and a string which contains `=`, but no assignme
 
 * Verbose hash notation
 * Difficulty in process handling
+* etc..
 
 # Problem 1
 
@@ -254,7 +257,7 @@ in ruby?
 
 # now?
 
-Active libraries work!
+Active libraries work for sure!
 
 * nokogiri
 * rails
@@ -268,6 +271,21 @@ Installation
 # rubygems is builtin!
 
 * rake as well
+
+# Problem 6
+
+Ruby is slow
+
+# YARV!
+
+fib 31
+
+* 1.8.7
+    * 7.99sec
+* 1.9.2
+    * 0.64sec
+* (jruby)
+    * 0.30sec
 
 # How to make legacy code 1.9 compatible?
 
@@ -306,7 +324,7 @@ change between 1.9.1 and 1.9.2
 
 *thanks!*
 
-talk by
+by
 
 * Tatsuhiro Ujihisa
 * @ujm
